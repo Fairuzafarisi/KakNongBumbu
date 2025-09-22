@@ -373,7 +373,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem; /* Ukuran font diperkecil */
         }
 
         .price-option:hover, .price-option.selected {
@@ -515,11 +515,13 @@
         .cart-content {
             background: white;
             max-width: 600px;
-            max-height: 80vh;
+            max-height: 90vh; /* Ubah tinggi agar bisa discroll */
             margin: 5% auto;
             border-radius: 20px;
             position: relative;
             overflow: hidden;
+            display: flex; /* Menggunakan flexbox */
+            flex-direction: column; /* Konten diatur dalam kolom */
             animation: slideInUp 0.3s ease;
         }
 
@@ -549,8 +551,8 @@
 
         .cart-body {
             padding: 2rem;
-            max-height: 60vh;
-            overflow-y: auto;
+            flex-grow: 1; /* Biarkan konten keranjang membesar */
+            overflow-y: auto; /* Aktifkan scroll pada body */
         }
 
         .cart-item {
@@ -595,6 +597,7 @@
             padding: 1.5rem 2rem;
             background: var(--light-gray);
             border-top: 1px solid #e2e8f0;
+            flex-shrink: 0; /* Mencegah bagian ini mengecil saat discroll */
         }
 
         /* Animations */
@@ -649,6 +652,18 @@
             
             .cart-content {
                 margin: 2% 1rem;
+            }
+
+            .cart-modal {
+                overflow-y: auto; /* Untuk memastikan scroll di modal penuh */
+            }
+
+            .checkout-section {
+                position: sticky; /* Agar tetap di bawah saat scroll */
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
             }
         }
 
@@ -744,7 +759,7 @@
             <div class="menu-grid" id="menuGrid">
                 <div class="menu-item" data-category="rendang">
                     <div class="menu-image" style="background: linear-gradient(135deg, #dc3545 0%, #ffc107 20%, #dc3545 100%);">
-                        🌶️
+                        🥩
                     </div>
                     <div class="menu-content">
                         <h3 class="menu-title">Bumbu Rendang Padang</h3>
@@ -762,7 +777,7 @@
 
                 <div class="menu-item" data-category="sop">
                     <div class="menu-image" style="background: linear-gradient(135deg, #6c757d 0%, #ffffff 50%, #6c757d 100%);">
-                        🥄
+                        🧄
                     </div>
                     <div class="menu-content">
                         <h3 class="menu-title">Bumbu Sop</h3>
@@ -798,7 +813,7 @@
 
                 <div class="menu-item" data-category="ungkep">
                     <div class="menu-image" style="background: linear-gradient(135deg, #ffc107 0%, #fff3cd 30%, #ffc107 100%);">
-                        🧄
+                        🍗
                     </div>
                     <div class="menu-content">
                         <h3 class="menu-title">Bumbu Ungkep</h3>
@@ -834,7 +849,7 @@
 
                 <div class="menu-item" data-category="putih">
                     <div class="menu-image" style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #ffffff 100%); border: 1px solid #e2e8f0;">
-                        🧅
+                        🍖
                     </div>
                     <div class="menu-content">
                         <h3 class="menu-title">Bumbu Putih</h3>
@@ -870,7 +885,7 @@
 
                 <div class="menu-item" data-category="soto">
                     <div class="menu-image" style="background: linear-gradient(135deg, #6c757d 0%, #ffffff 50%, #6c757d 100%);">
-                        🍜
+                        🍲
                     </div>
                     <div class="menu-content">
                         <h3 class="menu-title">Bumbu Soto</h3>
@@ -1013,7 +1028,7 @@
             
             <div class="checkout-section">
                 <div style="background: #fff3cd; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; font-size: 0.9rem;">
-                    <strong>📍 </strong> Ambil di Pasar Pagi Seutui.
+                    <strong>📍 Pengingat:</strong> Pesanan untuk diambil di toko, bukan diantar. Lokasi: Pasar Pagi Seutui.
                 </div>
                 <button id="checkoutBtn" class="btn-primary" style="width: 100%; padding: 1rem; font-size: 1.1rem; margin: 0;" onclick="checkout()" disabled>
                     📱 Pesan via WhatsApp
@@ -1118,6 +1133,7 @@
                 cartTotal.style.display = 'none';
                 customerInfo.style.display = 'none';
                 pickupTimeSelector.style.display = 'none';
+                document.getElementById('checkoutBtn').disabled = true;
                 return;
             }
             
